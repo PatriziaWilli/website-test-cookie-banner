@@ -2,16 +2,35 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Test Cookie Banner GitHub Pages</title>
+  <title>Test Cookie Banner + Analytics</title>
 
-  <!-- Cookie finti -->
+  <!-- 1) Fallback gtag -->
   <script>
-    document.cookie = "_ga=fakega; path=/";
-    document.cookie = "_gid=fakegid; path=/";
-    document.cookie = "_fbp=fakefbp; path=/";
+    window.gtag = window.gtag || function () {
+      console.log("⚠️ gtag chiamato ma non caricato, ignorato.");
+    };
   </script>
 
-  <!-- Banner script -->
+  <!-- 2) Analytics con blocco preventivo -->
+  <script
+    type="text/plain"
+    data-cookie-placeholder="analytics"
+    src="https://www.googletagmanager.com/gtag/js?id=G-HRCYHY14X7"
+    async
+  ></script>
+  <script type="text/plain" data-cookie-placeholder="analytics">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HRCYHY14X7');
+  </script>
+</head>
+
+<body>
+  <h1>🎯 Test Google Analytics + Cookie Banner</h1>
+  <p>Verifica nella console e tab Network che i cookie vengano caricati solo con consenso.</p>
+
+  <!-- 3) Cookie Banner -->
   <script
     src="https://stunning-starlight-30afbc.netlify.app/dist/cookie-banner.min.js"
     data-api-base="https://brave-connection-f862697dcf.strapiapp.com/api"
@@ -19,10 +38,7 @@
     data-token="abc123-test-token"
     async
   ></script>
-</head>
-<body>
-  <h1>🎉 Test Cookie Banner da GitHub Pages</h1>
-  <p>Controlla i cookie e i log in console.</p>
 </body>
 </html>
+
 
